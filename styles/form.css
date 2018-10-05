@@ -2,6 +2,9 @@
 }
 .form__input-row {
 }
+.input-row__game-start {
+	margin: 0.5rem auto;
+}
 .input-row__submit {
 	margin-top: 0.5rem;
 	margin-left: auto;

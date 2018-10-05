@@ -23,7 +23,8 @@ body {
 .footer__left-part,
 .footer__right-part,
 .game-about__game-field,
-.section__game {
+.section__game,
+.game-field__dialog {
 	display: flex;
 	flex-direction: column;
 }
