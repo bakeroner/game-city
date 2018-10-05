@@ -4,10 +4,26 @@ body {
 	position: relative;
 }
 .insides__header,
-.insides__navigation,
 .insides__section,
 .insides__footer {
-	width: 1280px;
+	max-width: 1280px;
 	margin: 0 auto;
 	width: 100%;
+}
+.header__logo,
+.game__field,
+.footer,
+.form__input-row,
+.section {
+	display: flex;
+	flex-direction: row;
+}
+.navigation__menu,
+.game__game-about,
+.footer__left-part,
+.footer__right-part,
+.game-about__game-field,
+.section__game {
+	display: flex;
+	flex-direction: column;
 }
