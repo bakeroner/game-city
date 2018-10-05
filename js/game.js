@@ -39,7 +39,7 @@ class cityWord {
 		dialogLog.appendChild(item);
 	}
 
-	uesrLastLetter () {
+	userLastLetter () {
 		let wordLength = this.word.length;
 		let letter = this.word.charAt(wordLength - 1);
 		this.lastLetter = letter;
@@ -67,6 +67,9 @@ class cityWord {
 		this.dialogArray.push(this.answerArray[i]);
 		break;
 		}
+			else {
+				this.dialogArray.push("You won");
+			}
 		}
 	}
 }
