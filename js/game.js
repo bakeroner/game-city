@@ -7,19 +7,26 @@ class cityWord {
 		this.word = cityNameField.value;
 		this.score = 0;
 		this.dialogArray = [];
-		this.answerArray = ["Питер","Минск","Пинск","Краснодар","Кадужный"];
+		this.answerArray = ["Питер","Минск","Пинск","Краснодар","Радужный"];
 		this.lastLetter = "";
 		this.correctLastLetter = "";
 	}
 
 	validation () {
 		if (this.word != "") {
+			let userWord = "";
+			let userLetters = "";
+			let userWordFirstLetter = this.word.charAt(0).toUpperCase();
+			for (let i = 1; i<this.word.length; i++) {
+				userLetters = this.word.charAt(i).toLowerCase();
+				userWord += userLetters;
+			}			
+			this.word = userWordFirstLetter+userWord;
 				return true;
 		}
 		else {
 			return false;
 		}
-		/*check previous last letter and first of word*/
 	}
 
 	log () {
@@ -49,12 +56,13 @@ class cityWord {
 
 	scoreAdd () {
 		this.score++;
+		console.log(this.score);
 	}
 
 	answer () {
 		let answerLength = this.answerArray.length;
 		let letter = this.correctLastLetter.toUpperCase();
-		for (let i=0; i<answerLength; i++) {
+		for (let i = 0; i<answerLength; i++) {
 			if (this.answerArray[i].charAt(0) == letter) {
 		this.dialogArray.push(this.answerArray[i]);
 		break;
@@ -75,7 +83,6 @@ submitButton.addEventListener("click", function (event) {
 			p.answer();
 			p.endOfLastWord();
 			p.wordOutput();
-			console.log(p.score);
 			}
 			else {
 				console.log("Wrong input");
