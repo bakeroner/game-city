@@ -7,6 +7,9 @@
 .insides__section {
 	background-color: #ca42c4;
 }
-.insides__footer {
+.footer__right-part {
+	background-color: #02cfc9;
+}
+.footer__left-part {
 	background-color: #972fc4;
 }
