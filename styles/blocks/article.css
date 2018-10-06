@@ -3,5 +3,7 @@
 	padding-bottom: 1.5rem;
 }
 .game-field__dialog {
-
+	margin-top: 0.5rem;
+	border-radius: 5px;
+	padding-left: 0.8rem;
 }
