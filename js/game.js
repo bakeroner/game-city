@@ -10,7 +10,7 @@ class cityWord {
 		this.dialogArray = [];
 		this.usedArray = [];
 		this.answerArray = ["Питер", "Минск", "Пинск", "Краснодар", "Радужный", "Адана"];
-		this.lastLetter = "";
+		this.firstLetter = "";
 		this.correctLastLetter = "";
 	}
 
@@ -43,14 +43,14 @@ class cityWord {
 		dialogLog.appendChild(item);
 	}
 
-	userLastLetter () {
+	userFirstLetter () {
 		let userWord = this.word;
 		let wordLength = userWord.length;
-		let letter = userWord.charAt(wordLength - 1);
-		if (letter == "ъ" || letter == "ь") {
+		let letter = userWord.charAt(0).toLowerCase();
+/*		if (letter == "ъ" || letter == "ь") {
 			letter = userWord.charAt(wordLength - 2);
-		}
-		this.lastLetter = letter;
+		}*/
+		this.firstLetter = letter;
 		return letter;
 	}
 
@@ -104,11 +104,18 @@ class cityWord {
 		sessionStorage.setItem("usedWords", this.usedArray);
 		sessionStorage.setItem("dialog", this.dialogArray);
 	}
-	static storageInitiation () {
+	storageInitiation () {
+		let temporalDialog = [];
+		let temporalUsed = [];
+		let scoreCheck = sessionStorage.getItem("score");
+		if (scoreCheck != null) {
 		this.score = sessionStorage.getItem("score");
 		this.correctLastLetter = sessionStorage.getItem("endOfLastWord");
-		this.usedArray = sessionStorage.getItem("usedWords");
-		this.dialogArray = sessionStorage.getItem("dialog");
+		temporalUsed = sessionStorage.getItem("usedWords").split(",");
+		this.usedArray = temporalUsed.concat();
+		temporalDialog = sessionStorage.getItem("dialog").split(",");
+		 this.dialogArray = temporalDialog.concat();
+		 }
 	}
 	static storageClean () {
 		sessionStorage.removeItem("score");
@@ -120,10 +127,10 @@ class cityWord {
 
 submitButton.addEventListener("click", function (event) {
 	event.preventDefault();
-	cityWord.storageInitiation();
 	let p = new cityWord();
+	p.storageInitiation();
 	if (p.validation() == true) {
-		if (p.correctLastLetter == "" || p.userLastLetter() == p.endOfLastWord()) {
+		if (p.correctLastLetter == "" || p.userFirstLetter() == p.endOfLastWord() ) {
 			p.log();
 			p.endOfLastWord();
 			p.wordOutput();
