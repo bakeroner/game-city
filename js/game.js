@@ -21,7 +21,14 @@ class cityWord {
 			let userWordFirstLetter = this.word.charAt(0).toUpperCase();
 			for (let i = 1; i<this.word.length; i++) {
 				userLetters = this.word.charAt(i).toLowerCase();
+				if (i == this.word.length - 1) {
+					if (userLetters == "ъ" || userLetters == "ь" || userLetters == " ") {
+						break;
+					}
+				}
+				else {
 				userWord += userLetters;
+				}
 			}
 			this.word = userWordFirstLetter+userWord;
 				return true;
@@ -47,9 +54,6 @@ class cityWord {
 		let userWord = this.word;
 		let wordLength = userWord.length;
 		let letter = userWord.charAt(0).toLowerCase();
-/*		if (letter == "ъ" || letter == "ь") {
-			letter = userWord.charAt(wordLength - 2);
-		}*/
 		this.firstLetter = letter;
 		return letter;
 	}
@@ -98,12 +102,14 @@ class cityWord {
 				this.dialogArray.push("You won");
 			}
 	}
+
 	storingInfo () {
 		sessionStorage.setItem("score",this.score);
 		sessionStorage.setItem("endOfLastWord",this.correctLastLetter);
 		sessionStorage.setItem("usedWords", this.usedArray);
 		sessionStorage.setItem("dialog", this.dialogArray);
 	}
+
 	storageInitiation () {
 		let temporalDialog = [];
 		let temporalUsed = [];
@@ -117,6 +123,7 @@ class cityWord {
 		 this.dialogArray = temporalDialog.concat();
 		 }
 	}
+
 	static storageClean () {
 		sessionStorage.removeItem("score");
 		sessionStorage.removeItem("endOfLastWord");
