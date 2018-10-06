@@ -25,6 +25,7 @@ class cityWord {
 					if (userLetters == "ъ" || userLetters == "ь" || userLetters == " ") {
 						break;
 					}
+					userWord += userLetters;
 				}
 				else {
 				userWord += userLetters;
