@@ -1,5 +1,6 @@
 const cityNameField = document.getElementById("cityNameField");
 const submitButton = document.getElementById("submitButton");
+const restartButton = document.getElementById("restartButton");
 const dialogLog = document.getElementById("log");
 class cityWord {
 
@@ -54,7 +55,7 @@ class cityWord {
 	}
 
 	endOfLastWord () {
-		let lastWord = this.dialogArray[this.dialogArray.length-1];
+		let lastWord = this.dialogArray[this.dialogArray.length - 1];
 		let wordLength = lastWord.length;
 		let letter = lastWord.charAt(wordLength - 1);
 		if (letter == "ъ" || letter == "ь") {
@@ -92,15 +93,34 @@ class cityWord {
 					break;
 				}
 			}
-			else {
+		}
+		if (!check) {
 				this.dialogArray.push("You won");
 			}
-		}
+	}
+	storingInfo () {
+		sessionStorage.setItem("score",this.score);
+		sessionStorage.setItem("endOfLastWord",this.correctLastLetter);
+		sessionStorage.setItem("usedWords", this.usedArray);
+		sessionStorage.setItem("dialog", this.dialogArray);
+	}
+	static storageInitiation () {
+		this.score = sessionStorage.getItem("score");
+		this.correctLastLetter = sessionStorage.getItem("endOfLastWord");
+		this.usedArray = sessionStorage.getItem("usedWords");
+		this.dialogArray = sessionStorage.getItem("dialog");
+	}
+	static storageClean () {
+		sessionStorage.removeItem("score");
+		sessionStorage.removeItem("endOfLastWord");
+		sessionStorage.removeItem("usedWords");
+		sessionStorage.removeItem("dialog");
 	}
 }
 
 submitButton.addEventListener("click", function (event) {
 	event.preventDefault();
+	cityWord.storageInitiation();
 	let p = new cityWord();
 	if (p.validation() == true) {
 		if (p.correctLastLetter == "" || p.userLastLetter() == p.endOfLastWord()) {
@@ -111,6 +131,7 @@ submitButton.addEventListener("click", function (event) {
 			p.answer();
 			p.endOfLastWord();
 			p.wordOutput();
+			p.storingInfo();
 			}
 			else {
 				p.dialogArray.push("Word have to start from the previous word's last letter");
@@ -122,5 +143,9 @@ submitButton.addEventListener("click", function (event) {
 			p.wordOutput();
 		}
 	
+})
+restartButton.addEventListener("click", function (action) {
+	action.preventDefault();
+	cityWord.storageClean();
 })
 
