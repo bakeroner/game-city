@@ -4,12 +4,12 @@ const restartButton = document.getElementById("restartButton");
 const dialogLog = document.getElementById("log");
 class cityWord {
 
-	constructor () {
-		this.word = cityNameField.value;
+	constructor (word) {
+		this.word = word;
 		this.score = 0;
 		this.dialogArray = [];
 		this.usedArray = [];
-		this.answerArray = ["Питер", "Минск", "Пинск", "Краснодар", "Радужный", "Адана"];
+		this.answerArray = ["Saint Petersburg", "Minsk", "Pinsk", "Krasnodar", "Gomel", "Adana"];
 		this.firstLetter = "";
 		this.correctLastLetter = "";
 	}
@@ -21,15 +21,7 @@ class cityWord {
 			let userWordFirstLetter = this.word.charAt(0).toUpperCase();
 			for (let i = 1; i<this.word.length; i++) {
 				userLetters = this.word.charAt(i).toLowerCase();
-				if (i == this.word.length - 1) {
-					if (userLetters == "ъ" || userLetters == "ь" || userLetters == " ") {
-						break;
-					}
 					userWord += userLetters;
-				}
-				else {
-				userWord += userLetters;
-				}
 			}
 			this.word = userWordFirstLetter+userWord;
 				return true;
@@ -63,9 +55,6 @@ class cityWord {
 		let lastWord = this.dialogArray[this.dialogArray.length - 1];
 		let wordLength = lastWord.length;
 		let letter = lastWord.charAt(wordLength - 1);
-		if (letter == "ъ" || letter == "ь") {
-			letter = lastWord.charAt(wordLength - 2);
-		}
 		this.correctLastLetter = letter;
 		return letter;
 	}
@@ -126,16 +115,14 @@ class cityWord {
 	}
 
 	static storageClean () {
-		sessionStorage.removeItem("score");
-		sessionStorage.removeItem("endOfLastWord");
-		sessionStorage.removeItem("usedWords");
-		sessionStorage.removeItem("dialog");
+		sessionStorage.clear();
 	}
 }
 
 submitButton.addEventListener("click", function (event) {
 	event.preventDefault();
-	let p = new cityWord();
+	let fieldValue = cityNameField.value;
+	let p = new cityWord(fieldValue);
 	p.storageInitiation();
 	if (p.validation() == true) {
 		if (p.correctLastLetter == "" || p.userFirstLetter() == p.endOfLastWord() ) {
