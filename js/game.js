@@ -5,26 +5,21 @@ const warning = document.getElementById("warningField");
 const dialogLog = document.getElementById("log");
 class cityWord {
 
-	constructor (word) {
-		this.word = word;
-		this.score = 0;
-		this.dialogArray = [];
-		this.usedArray = [];
-		this.answerArray = ["Saint Petersburg", "Minsk", "Pinsk", "Krasnodar", "Gomel", "Adana"];
-		this.correctLastLetter = "";
+	constructor () {
+//		this.word = "";
 	}
 
 	validation () {
-		if (this.word !== "") {
-			if (this.correctLastLetter === "" || this.userFirstLetter() === true) {
+		if (storage.word !== "") {
+			if (storage.correctLastLetter === "" || this.userFirstLetter() === true) {
 				let userWord = "";
 				let userLetters = "";
-				let userWordFirstLetter = this.word.charAt(0).toUpperCase();
-				for (let i = 1; i<this.word.length; i++) {
-					userLetters = this.word.charAt(i).toLowerCase();
+				let userWordFirstLetter = storage.word.charAt(0).toUpperCase();
+				for (let i = 1; i<storage.word.length; i++) {
+					userLetters = storage.word.charAt(i).toLowerCase();
 						userWord += userLetters;
 				}
-				this.word = userWordFirstLetter+userWord;
+				storage.word = userWordFirstLetter+userWord;
 					return true;
 			}
 			else {
@@ -41,44 +36,43 @@ class cityWord {
 	}
 
 	log () {
-		this.dialogArray.push(this.word);
-		this.score++;
-		console.log(this.score);
+		storage.dialogArray.push(storage.word);
+		storage.score++;
 		this.endOfLastWord();
 	}
 
 	userFirstLetter () {
-		let userWord = this.word;
+		let userWord = storage.word;
 		let wordLength = userWord.length;
 		let letter = userWord.charAt(0).toLowerCase();
-		if (letter === this.correctLastLetter) {
+		if (letter === storage.correctLastLetter) {
 			return true;
 		}
 		
 	}
 
 	endOfLastWord () {
-		let lastWord = this.dialogArray[this.dialogArray.length - 1];
+		let lastWord = storage.dialogArray[storage.dialogArray.length - 1];
 		let wordLength = lastWord.length;
 		let letter = lastWord.charAt(wordLength - 1);
-		this.correctLastLetter = letter;
+		storage.correctLastLetter = letter;
 
 		let item = document.createElement("p");
-		this.usedArray.push(lastWord);
+		storage.usedArray.push(lastWord);
 		item.innerHTML = lastWord;
 		dialogLog.appendChild(item);
 		return letter;
 	}
 
 	answer () {
-		let answerLength = this.answerArray.length;
-		let usedLength = this.usedArray.length;
-		let letter = this.correctLastLetter.toUpperCase();
+		let answerLength = storage.answerArray.length;
+		let usedLength = storage.usedArray.length;
+		let letter = storage.correctLastLetter.toUpperCase();
 		let check = true;
 		for (let i = 0; i<answerLength; i++) {
-			if (this.answerArray[i].charAt(0) === letter) {
+			if (storage.answerArray[i].charAt(0) === letter) {
 				for (let j = 0; j<usedLength; j++) {
-					if (this.usedArray[j] === this.answerArray[i])
+					if (storage.usedArray[j] === storage.answerArray[i])
 					{
 						i++;
 						check = false;
@@ -89,72 +83,43 @@ class cityWord {
 					}
 				}
 				if (check) {
-					this.dialogArray.push(this.answerArray[i]);
+					storage.dialogArray.push(storage.answerArray[i]);
 					break;
 				}
 			}
 		}
 		if (!check) {
-				this.dialogArray.push("You won");
+				alert("You won");
 			}
 			this.endOfLastWord();
 	}
-
-	storingInfo () {
-		sessionStorage.setItem("score",this.score);
-		sessionStorage.setItem("endOfLastWord",this.correctLastLetter);
-		sessionStorage.setItem("usedWords", this.usedArray);
-		sessionStorage.setItem("dialog", this.dialogArray);
-	}
-
-	storageInitiation () {
-		let temporalDialog = [];
-		let temporalUsed = [];
-		let scoreCheck = sessionStorage.getItem("score");
-		if (scoreCheck != null) {
-		this.score = sessionStorage.getItem("score");
-		this.correctLastLetter = sessionStorage.getItem("endOfLastWord");
-		temporalUsed = sessionStorage.getItem("usedWords").split(",");
-		this.usedArray = temporalUsed.concat();
-		temporalDialog = sessionStorage.getItem("dialog").split(",");
-		 this.dialogArray = temporalDialog.concat();
-		 }
-	}
-
-}
-function storageClean () {
-	sessionStorage.clear();
 }
 
-/*function warningToVisible (warningText) {
-		let item = document.createElement("p");
-		item.innerHTML = warningText;
-		warning.appendChild(item);
-		warning.classList.toggle("hideElement");
-}
-function warningClean () {
-	let warningChild = warning.firstChild;
-	if (warningChild) {
-		warning.removeСhild(warningChild);
-		warning.classList.toggle("hideElement");
-	}
-}*/
+let storage = {
+	word: "",
+	score: 0,
+	dialogArray: [],
+	answerArray: ["Saint Petersburg", "Minsk", "Pinsk", "Krasnodar", "Gomel", "Adana"],
+	usedArray: [],
+	correctLastLetter: ""
+};
+	let p = new cityWord();
 
 submitButton.addEventListener("click", function (event) {
 	event.preventDefault();
-	let fieldValue = cityNameField.value;
-	let p = new cityWord(fieldValue);
-	p.storageInitiation();
+	fieldValue = cityNameField.value;
+	storage.word = fieldValue;
 	if (p.validation() === true) {
 			p.log();
-//			p.endOfLastWord(); running from p.log
 			p.answer();
-//			p.endOfLastWord(); running from p.answer
-			p.storingInfo();
+			console.log(storage.score);
+			console.log(storage.correctLastLetter);
+			console.log(storage.usedArray);
+			console.log(storage.dialogArray);
 			}
-	
 })
+
 restartButton.addEventListener("click", function (action) {
 	action.preventDefault();
-	storageClean();
+//	storageClean();
 })
