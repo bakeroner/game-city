@@ -15,7 +15,6 @@ class cityWord {
 	}
 
 	validation () {
-		warningClean();
 		if (this.word !== "") {
 			if (this.correctLastLetter === "" || this.userFirstLetter() === true) {
 				let userWord = "";
@@ -29,13 +28,13 @@ class cityWord {
 					return true;
 			}
 			else {
-				warningToVisible("Should start from prev letter");
+					alert("Should start from prev letter");
 				/*note to user*/
 				return false;
 			}
 		}
 		else {
-			warningToVisible("wrong input");
+					alert("Should start from prev letter");
 			/*note to user*/
 			return false;
 		}
@@ -127,7 +126,7 @@ function storageClean () {
 	sessionStorage.clear();
 }
 
-function warningToVisible (warningText) {
+/*function warningToVisible (warningText) {
 		let item = document.createElement("p");
 		item.innerHTML = warningText;
 		warning.appendChild(item);
@@ -139,7 +138,7 @@ function warningClean () {
 		warning.removeСhild(warningChild);
 		warning.classList.toggle("hideElement");
 	}
-}
+}*/
 
 submitButton.addEventListener("click", function (event) {
 	event.preventDefault();
