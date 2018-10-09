@@ -6,7 +6,6 @@ const dialogLog = document.getElementById("log");
 class cityWord {
 
 	constructor () {
-//		this.word = "";
 	}
 
 	validation () {
@@ -58,7 +57,6 @@ class cityWord {
 		storage.correctLastLetter = letter;
 
 		let item = document.createElement("p");
-		storage.usedArray.push(lastWord);
 		item.innerHTML = lastWord;
 		dialogLog.appendChild(item);
 		return letter;
@@ -66,13 +64,13 @@ class cityWord {
 
 	answer () {
 		let answerLength = storage.answerArray.length;
-		let usedLength = storage.usedArray.length;
+		let usedLength = storage.dialogArray.length;
 		let letter = storage.correctLastLetter.toUpperCase();
 		let check = true;
 		for (let i = 0; i<answerLength; i++) {
 			if (storage.answerArray[i].charAt(0) === letter) {
 				for (let j = 0; j<usedLength; j++) {
-					if (storage.usedArray[j] === storage.answerArray[i])
+					if (storage.dialogArray[j] === storage.answerArray[i])
 					{
 						i++;
 						check = false;
@@ -100,7 +98,6 @@ let storage = {
 	score: 0,
 	dialogArray: [],
 	answerArray: ["Saint Petersburg", "Minsk", "Pinsk", "Krasnodar", "Gomel", "Adana"],
-	usedArray: [],
 	correctLastLetter: ""
 };
 
@@ -108,7 +105,6 @@ function storageClean () {
 	storage.word = "";
 	storage.score = 0;
 	storage.dialogArray = [];
-	storage.usedArray = [];
 	storage.correctLastLetter = "";
 	}
 
