@@ -103,7 +103,17 @@ let storage = {
 	usedArray: [],
 	correctLastLetter: ""
 };
-	let p = new cityWord();
+
+function storageClean () {
+	storage.word = "";
+	storage.score = 0;
+	storage.dialogArray = [];
+	storage.usedArray = [];
+	storage.correctLastLetter = "";
+	}
+
+let p = new cityWord();
+
 
 submitButton.addEventListener("click", function (event) {
 	event.preventDefault();
@@ -121,5 +131,5 @@ submitButton.addEventListener("click", function (event) {
 
 restartButton.addEventListener("click", function (action) {
 	action.preventDefault();
-//	storageClean();
+	storageClean();
 })
