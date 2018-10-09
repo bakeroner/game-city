@@ -1,6 +1,7 @@
 const cityNameField = document.getElementById("cityNameField");
 const submitButton = document.getElementById("submitButton");
 const restartButton = document.getElementById("restartButton");
+const warning = document.getElementById("warningField");
 const dialogLog = document.getElementById("log");
 class cityWord {
 
@@ -10,45 +11,51 @@ class cityWord {
 		this.dialogArray = [];
 		this.usedArray = [];
 		this.answerArray = ["Saint Petersburg", "Minsk", "Pinsk", "Krasnodar", "Gomel", "Adana"];
-		this.firstLetter = "";
 		this.correctLastLetter = "";
 	}
 
 	validation () {
-		if (this.word != "") {
-			let userWord = "";
-			let userLetters = "";
-			let userWordFirstLetter = this.word.charAt(0).toUpperCase();
-			for (let i = 1; i<this.word.length; i++) {
-				userLetters = this.word.charAt(i).toLowerCase();
-					userWord += userLetters;
+		warningClean();
+		if (this.word !== "") {
+			if (this.correctLastLetter === "" || this.userFirstLetter() === true) {
+				let userWord = "";
+				let userLetters = "";
+				let userWordFirstLetter = this.word.charAt(0).toUpperCase();
+				for (let i = 1; i<this.word.length; i++) {
+					userLetters = this.word.charAt(i).toLowerCase();
+						userWord += userLetters;
+				}
+				this.word = userWordFirstLetter+userWord;
+					return true;
 			}
-			this.word = userWordFirstLetter+userWord;
-				return true;
+			else {
+				warningToVisible("Should start from prev letter");
+				/*note to user*/
+				return false;
+			}
 		}
 		else {
+			warningToVisible("wrong input");
+			/*note to user*/
 			return false;
 		}
 	}
 
 	log () {
 		this.dialogArray.push(this.word);
-	}
-
-	wordOutput () {
-		let lastElement = this.dialogArray[this.dialogArray.length-1];
-		let item = document.createElement("p");
-		this.usedArray.push(lastElement);
-		item.innerHTML = lastElement;
-		dialogLog.appendChild(item);
+		this.score++;
+		console.log(this.score);
+		this.endOfLastWord();
 	}
 
 	userFirstLetter () {
 		let userWord = this.word;
 		let wordLength = userWord.length;
 		let letter = userWord.charAt(0).toLowerCase();
-		this.firstLetter = letter;
-		return letter;
+		if (letter === this.correctLastLetter) {
+			return true;
+		}
+		
 	}
 
 	endOfLastWord () {
@@ -56,12 +63,12 @@ class cityWord {
 		let wordLength = lastWord.length;
 		let letter = lastWord.charAt(wordLength - 1);
 		this.correctLastLetter = letter;
-		return letter;
-	}
 
-	scoreAdd () {
-		this.score++;
-		console.log(this.score);
+		let item = document.createElement("p");
+		this.usedArray.push(lastWord);
+		item.innerHTML = lastWord;
+		dialogLog.appendChild(item);
+		return letter;
 	}
 
 	answer () {
@@ -70,9 +77,9 @@ class cityWord {
 		let letter = this.correctLastLetter.toUpperCase();
 		let check = true;
 		for (let i = 0; i<answerLength; i++) {
-			if (this.answerArray[i].charAt(0) == letter) {
+			if (this.answerArray[i].charAt(0) === letter) {
 				for (let j = 0; j<usedLength; j++) {
-					if (this.usedArray[j] == this.answerArray[i])
+					if (this.usedArray[j] === this.answerArray[i])
 					{
 						i++;
 						check = false;
@@ -91,6 +98,7 @@ class cityWord {
 		if (!check) {
 				this.dialogArray.push("You won");
 			}
+			this.endOfLastWord();
 	}
 
 	storingInfo () {
@@ -114,8 +122,22 @@ class cityWord {
 		 }
 	}
 
-	static storageClean () {
-		sessionStorage.clear();
+}
+function storageClean () {
+	sessionStorage.clear();
+}
+
+function warningToVisible (warningText) {
+		let item = document.createElement("p");
+		item.innerHTML = warningText;
+		warning.appendChild(item);
+		warning.classList.toggle("hideElement");
+}
+function warningClean () {
+	let warningChild = warning.firstChild;
+	if (warningChild) {
+		warning.removeСhild(warningChild);
+		warning.classList.toggle("hideElement");
 	}
 }
 
@@ -124,30 +146,16 @@ submitButton.addEventListener("click", function (event) {
 	let fieldValue = cityNameField.value;
 	let p = new cityWord(fieldValue);
 	p.storageInitiation();
-	if (p.validation() == true) {
-		if (p.correctLastLetter == "" || p.userFirstLetter() == p.endOfLastWord() ) {
+	if (p.validation() === true) {
 			p.log();
-			p.endOfLastWord();
-			p.wordOutput();
-			p.scoreAdd();
+//			p.endOfLastWord(); running from p.log
 			p.answer();
-			p.endOfLastWord();
-			p.wordOutput();
+//			p.endOfLastWord(); running from p.answer
 			p.storingInfo();
 			}
-			else {
-				p.dialogArray.push("Word have to start from the previous word's last letter");
-				p.wordOutput();
-		}
-	}
-	else {
-			p.dialogArray.push("Wrong input");
-			p.wordOutput();
-		}
 	
 })
 restartButton.addEventListener("click", function (action) {
 	action.preventDefault();
-	cityWord.storageClean();
+	storageClean();
 })
-

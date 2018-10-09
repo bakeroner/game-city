@@ -1,6 +1,7 @@
 .game-field {
 }
 .form__input-row {
+
 }
 .input-row__game-start {
 	margin: 0.5rem auto;
@@ -14,4 +15,14 @@
 	margin-bottom: 0.5rem;
 	margin-left: auto;
 	margin-right: auto;
+}
+.input-row__field-warning {
+	margin-top: 0.3rem;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color: #f7054d;
+	border: 2px solid #f7054d;
+	border-radius: 5px;
+
 }
