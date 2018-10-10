@@ -80,4 +80,5 @@ submitButton.addEventListener("click", function (event) {
 })
 restartButton.addEventListener("click", function (action) {
 	game.storageClean();
+	alert("All history is cleaned"); /*note to user*/
 })
