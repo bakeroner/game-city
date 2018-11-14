@@ -4,7 +4,6 @@ body {
 	margin: 0 auto;
 	position: relative;
 	background-color: #1eae7c;
-	overflow-y: hidden;
 	overflow-x: hidden;
 }
 .game-container__game-about {
