@@ -6,12 +6,29 @@
     <link rel="stylesheet" href="styles/import.css">
 </head>
 	<body>
-		<div class="game-about__game-field">
-			<button id="restartButton" class="input-row__restart">Restart</button>
-			<input type="text" name="cityName" class="inputfield" id="cityNameField">
-			<button id="submitButton" class="input-row__submit">Submit</button>
-			<div class="game-field__dialog" id="log"></div>				
+		<div class="game-container__game-about">
+			<div class="game-about">
+				<h1 class="game-about__title">Word City: Connect Words Game</h1>
+				<p>
+					This website presents Word City game. You have to start new word with the last word from previous word. First word is free to input.
+				</p>
+				<ul class="game-about__info">
+					<li>Rules</li>
+					<li>Word List</li>
+				</ul>
+				<button class="game-about__start-button" id="readyToStart">I'm Ready to Start!!</button>
+			</div>
+			<div class="game-about__game-field hideElement" id="gameField">
+				<button id="restartButton" class="input-row__restart">Restart</button>
+				<input type="text" name="cityName" class="inputfield" id="cityNameField">
+				<button id="submitButton" class="input-row__submit">Confirm</button>
+				<div class="game-field__dialog hideElement" id="log"></div>				
+			</div>
 		</div>
+		<footer>
+			<p>Aleksey Shakhtoryn</p>
+			<a href="https://github.com/bakeroner">Git Link</a>
+		</footer>
 		<script type="text/javascript" src="js/game.js"></script>
 	</body>
 </html>

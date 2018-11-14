@@ -2,6 +2,9 @@ const textInputValue = document.getElementById("cityNameField");
 const submitButton = document.getElementById("submitButton");
 const restartButton = document.getElementById("restartButton");
 const gameHistory = document.getElementById("log");
+const readyToStart = document.getElementById("readyToStart");
+const gameField = document.getElementById("gameField");
+let game;
 class CityWord {
 	constructor () {
 		this.currentWord = "";
@@ -16,11 +19,11 @@ class CityWord {
 		if (value) {
 			this.currentWord = value[0].toUpperCase() + value.substr(1).toLowerCase();
 			if (this.correctLastLetter === "" || this.correctLastLetter === this.currentWord[0].toLowerCase()) {
-				if (this.storage.history.indexOf(this.currentWord) < 0) {
+				if (this.storage.history.indexOf(this.currentWord) < 0 && this.storage.answerArray.indexOf(this.currentWord) > 0) {
 					return true;
 				}
 				else {
-					alert("This word is already used, try again"); /*note to user*/
+					alert("This word is already used or doesn't included in word list, try again"); /*note to user*/
 					return false;
 				}
 			}
@@ -37,13 +40,21 @@ class CityWord {
 	save () {
 		this.storage.history.push(this.currentWord);
 		this.storage.score++;
-		this.endOfLastWord();
+		this.endOfLastWord(true);
 	}
-	endOfLastWord () {
+	endOfLastWord (playersTurn) {
 		let lastWord = this.storage.history[this.storage.history.length - 1];
 		this.correctLastLetter = lastWord.charAt(lastWord.length - 1);
 		let item = document.createElement("p");
-		item.innerHTML = lastWord;
+		if (playersTurn) {
+			item.classList.add("textHighlight");
+			item.innerHTML = `Player's Turn: ` + lastWord;
+		}
+		else {
+			item.classList.add("textHighlightComputer");
+			item.innerHTML = `Computer's Turn: ` + lastWord;
+		}
+		gameHistory.classList.remove("hideElement");
 		gameHistory.appendChild(item);
 	}
 	answer () {
@@ -58,7 +69,7 @@ class CityWord {
         	alert("Congratulations, you won!"); /*note to user*/
         }
         else {
-        	this.endOfLastWord();
+        	this.endOfLastWord(false);
         }        
 	}
 	storageClean () {
@@ -68,7 +79,12 @@ class CityWord {
 		this.correctLastLetter = "";
 	}
 }
-let game = new CityWord();
+game = new CityWord();
+readyToStart.addEventListener("click", function (event) {
+	readyToStart.classList.add("hideElement");
+	gameField.classList.remove("hideElement");
+	game = new CityWord();
+})
 submitButton.addEventListener("click", function (event) {
 	if (game.isValid(textInputValue.value)) {
 			game.save();

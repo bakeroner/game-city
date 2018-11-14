@@ -1,31 +1,27 @@
-.game-field {
-}
-.form__input-row {
-
-}
-.input-row__game-start {
-	margin: 0.5rem auto;
-}
 .input-row__submit {
+	background-color: #fff;
+	border-radius: 5px;
+	border: 2px solid #000;
+	width: 80px;
+	height: 40px;
 	margin-top: 0.5rem;
 	margin-left: auto;
 	margin-right: auto;
 }
 .input-row__restart {
+	background-color: #fff;
+	border-radius: 5px;
+	border: 2px solid #000;
+	width: 80px;
+	height: 40px;
 	margin-bottom: 0.5rem;
 	margin-left: auto;
 	margin-right: auto;
 }
-.input-row__field-warning {
-	margin-top: 0.3rem;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-	color: #f7054d;
-	border: 2px solid #f7054d;
-	border-radius: 5px;
-}
 .inputfield {
+	padding-left: 0.8rem;
 	width: 400px;
 	height: 30px;
+	border: 2px solid #000;
+	border-radius: 5px;
 }

@@ -1,34 +1,36 @@
 body {
 	width: 100%;
-	height: 100%;
-	margin: 0;
+	height: 100vh;
+	margin: 0 auto;
 	position: relative;
+	background-color: #1eae7c;
 }
-.insides__header,
-.insides__section,
-.insides__footer {
+.game-container__game-about {
 	max-width: 1280px;
 	margin: 0 auto;
 	width: 100%;
 }
-.header__logo,
-.game__field,
-.footer,
-.form__input-row,
-.section {
+/* {
 	display: flex;
 	flex-direction: row;
-}
-.navigation__menu,
-.game__game-about,
-.footer__left-part,
-.footer__right-part,
+}*/
 .game-about__game-field,
-.section__game,
-.game-field__dialog {
+.game-field__dialog,
+.game-about {
 	display: flex;
 	flex-direction: column;
 }
 .hideElement {
 	display: none;
+}
+.textHighlight {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.textHighlightComputer {
+	font-style: italic;
+	color: #1f8fb7;
+	margin-top: 5px;
+	margin-bottom: 5px;
+
 }
