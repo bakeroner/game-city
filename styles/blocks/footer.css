@@ -1,12 +1,22 @@
-.footer__left-part {
-	width: 50%;
+.developer-info {
+	position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
 }
-.footer__right-part {
-	width: 50%;
-	justify-content: center;
+.developer-info__text {
+
 }
-.right-part__additional-info {
-	width: 80%;
-	margin-left: auto;
-	margin-right: auto;
+.developer-info__git-link {
+	-webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+	color: #fff;
+	text-decoration: none;
+}
+.developer-info__git-link:hover {
+	color: #1f8fb7;
 }

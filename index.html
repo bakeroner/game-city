@@ -6,16 +6,40 @@
     <link rel="stylesheet" href="styles/import.css">
 </head>
 	<body>
+		<header class="top-part">
+			<h1 class="top-part__title">
+				Word City: Connect Words Game
+			</h1>
+			<p class="top-part__text">
+				This website presents Word City game. You have to start new word with the last word from previous word. First word is free to input.
+			</p>
+		</header>
 		<div class="game-container__game-about">
 			<div class="game-about">
-				<h1 class="game-about__title">Word City: Connect Words Game</h1>
-				<p>
-					This website presents Word City game. You have to start new word with the last word from previous word. First word is free to input.
-				</p>
-				<ul class="game-about__info">
-					<li>Rules</li>
-					<li>Word List</li>
-				</ul>
+				<div class="game-about__info">
+					<ul class="info" type="square">
+						<li class="info-list">
+							<span class="info-list__text">Rules</span>
+							<ul class="info-list__list hideElement" id="rulesTree" type="disc">
+								<li class="rules__item">
+									<span>To start the game just click the button below.</span>
+								</li>
+								<li class="rules__item">
+									<span>English letters only.</span>
+								</li>
+								<li class="rules__item">
+									<span>New word must start from the last letter from previous word.</span>
+								</li>
+							</ul>
+						</li>
+						<li class="info-list">
+							<span class="info-list__text">Word List</span>
+							<ul class="info-list__list hideElement" id="wordTree" type="disc">
+								<li class="word-list__item">I work on this part.</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
 				<button class="game-about__start-button" id="readyToStart">I'm Ready to Start!!</button>
 			</div>
 			<div class="game-about__game-field hideElement" id="gameField">
@@ -25,10 +49,11 @@
 				<div class="game-field__dialog hideElement" id="log"></div>				
 			</div>
 		</div>
-		<footer>
-			<p>Aleksey Shakhtoryn</p>
-			<a href="https://github.com/bakeroner">Git Link</a>
+		<footer class="developer-info">
+			<p class="developer-info__text">Aleksey Shakhtoryn</p>
+			<a href="https://github.com/bakeroner" class="developer-info__git-link">Git Link</a>
 		</footer>
 		<script type="text/javascript" src="js/game.js"></script>
+		<script type="text/javascript" src="js/listHide.js"></script>
 	</body>
 </html>

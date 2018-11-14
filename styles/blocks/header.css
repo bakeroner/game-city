@@ -1,0 +1,14 @@
+.top-part {
+	text-align: center;
+    width: 100%;
+    background-color: #1eae7c;
+    padding: 1rem;
+    padding-bottom: 3rem;
+}
+.top-part__title {
+	margin: 2rem 0;
+}
+.top-part__text {
+	margin: 0 auto;
+	width: 40%;
+}

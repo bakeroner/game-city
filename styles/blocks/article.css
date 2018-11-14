@@ -20,7 +20,26 @@
 	margin-left: auto;
 	margin-right: auto;
 }
-.game-about {
+.game-about__info {
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 2rem;
+}
+.info {
+	padding-left: 0;
+}
+.info-list__text {
+	-webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+.info-list__text:hover {
+	color: #fff;
+}
+.rules__item {
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+.word-list__item {
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;	
 }
